@@ -111,18 +111,26 @@ Required seed repo:
 - Create at least one repo before connecting Linear to GitHub.
 - Recommended seed repo: `company-os`.
 - Private is usually safest for a new organization.
+- The seed repo owner must be the approved target GitHub owner. For a new organization setup, this means the repo URL must be `https://github.com/<target-org>/<repo>`, not `https://github.com/<operator-user>/<repo>`.
 
 Why: Linear GitHub integration can fail or half-complete if the GitHub org has no repositories.
+
+Hard gate before Linear:
+
+- Verify the GitHub repo owner from the browser URL, GitHub repo header, or `gh repo view <owner>/<repo>`.
+- If the target owner is a GitHub org and the repo was created under a personal account, STOP. Do not continue to Linear onboarding or Linear GitHub integration.
+- Fix by creating the repo inside the org, or by transferring the repo only if the user explicitly approves and the operator has permission.
+- Record the verified `owner/repo` in the setup log and use only that repo for Linear, Slack subscriptions, and Notion GitHub connections.
 
 Verification:
 
 - GitHub org exists.
-- Seed repo exists.
+- Seed repo exists under the approved target owner.
 - If a GitHub App is installed, verify it is installed on the organization or selected repo, not only authorized personally.
 
 ## Phase 6: Linear
 
-Create or reuse the Linear workspace.
+Create or reuse the Linear workspace. Linear registration/onboarding may offer to connect Slack and GitHub before the user lands in the full workspace. Use those onboarding integration steps when offered, after the GitHub org/repo hard gate has passed.
 
 Recommended for small teams:
 
@@ -131,8 +139,8 @@ Recommended for small teams:
 
 Connect integrations:
 
-1. Linear -> Slack
-2. Linear -> GitHub after the GitHub org has at least one repo
+1. Linear -> Slack, either in onboarding or in Linear Settings -> Integrations -> Slack
+2. Linear -> GitHub, either in onboarding or in Linear Settings -> Integrations -> GitHub, only after the GitHub org has a verified org-owned repo
 
 Verification:
 
@@ -141,7 +149,7 @@ Verification:
 - Linear Settings -> Integrations -> GitHub shows enabled.
 - Linear GitHub page lists the connected organization.
 
-Do not trust onboarding progress alone. If GitHub was attempted before a repo existed, re-open Linear Settings -> Integrations -> GitHub and verify the actual enabled state.
+Do not trust onboarding progress alone. After onboarding finishes, re-open Linear Settings -> Integrations and verify Slack and GitHub enabled states. If GitHub was attempted before the verified repo existed, re-run the GitHub integration from settings.
 
 ## Phase 7: Notion
 
@@ -160,17 +168,31 @@ Create a minimal `Company OS` page with:
 
 The page is an operating map, not a replacement for Linear or GitHub. It should link to the real Slack workspace, GitHub org/repo, Linear workspace, and relevant Notion pages.
 
-Recommended Notion connections:
+Required Notion connections by default:
 
-- Slack link previews: install first, low risk, useful.
-- GitHub link preview/database sync: optional; verify carefully.
-- Linear link preview: optional; install only if the user wants Linear issues/projects to preview in Notion.
-- AI connectors and MCP server connections: defer unless explicitly needed; permissions are broader.
+- Slack connection/link previews/notifications.
+- GitHub workspace connection for the approved target GitHub org/repo.
+- Linear connection or Linear AI Connector, depending on what Notion exposes for the workspace.
+
+Do not skip Notion integrations because they feel less important. Only skip one when the user explicitly defers it or the product blocks it because of plan, admin, or OAuth limitations. When blocked, record the exact reason and whether a human/admin action can unblock it.
+
+Notion Linear caveat:
+
+- The Linear AI Connector requires Linear workspace admin, Notion workspace owner, and a Notion Business or Enterprise plan. If the workspace cannot satisfy that, mark Notion -> Linear as `blocked: plan/admin requirement`, not silently deferred.
+
+AI connectors and MCP connections beyond Slack/GitHub/Linear are optional and can be deferred unless explicitly needed.
 
 Known Notion issue:
 
 - GitHub workspace connection can complete GitHub-side authorization but return to a small Notion popup instead of updating the parent settings window.
 - Workaround: close the popup, refresh Notion Settings & members -> Connections, reopen the connection, and verify `installed` count. If it remains `0/N`, treat it as not installed.
+
+Verification:
+
+- Notion -> Slack: Settings/Notifications/Connections shows the Slack workspace connected, or Slack shows the Notion app connection.
+- Notion -> GitHub: Settings -> Connections shows GitHub workspace connection installed for the approved GitHub owner/repo.
+- Notion -> Linear: Settings -> Notion AI -> Linear or the relevant Connections page shows connected, pending, or blocked with exact plan/admin reason.
+- Company OS page links to the real Slack workspace, verified GitHub org/repo, Linear workspace/team, and Notion connection status.
 
 ## Phase 8: Slack App Installs
 
@@ -178,7 +200,7 @@ Install Slack apps at workspace scope:
 
 - GitHub for Slack
 - Linear for Slack
-- Notion for Slack link previews/notifications as needed
+- Notion for Slack link previews/notifications unless explicitly deferred
 
 GitHub for Slack verification:
 
@@ -239,8 +261,7 @@ Write down deferred decisions instead of silently skipping them:
 - extra Slack channels
 - feed channel routing
 - GitHub Slack subscriptions
-- Notion GitHub/Linear deeper connections
-- Notion AI connector or MCP connector
+- Notion AI/MCP extras beyond the required Slack, GitHub, and Linear Notion connections
 - Linear teams/projects/templates
 - GitHub repo templates, branch protection, issue/PR templates
 
@@ -285,7 +306,10 @@ Verification before sharing:
 - Ask before creating channels or repos. Even sensible defaults should be confirmed.
 - A Slack app in the sidebar means the app is installed, not that notifications are routed.
 - A Notion page link is not the same as a workspace connection.
-- Linear GitHub setup depends on GitHub repo existence.
+- GitHub seed repo ownership must be verified before Linear. If the target is an org, `owner/repo` must be the org, not the operator's personal account.
+- Linear onboarding can be used to connect Slack and GitHub, but settings verification still decides whether the integration is truly enabled.
+- Notion Slack, GitHub, and Linear integrations are required by default for this setup; blocked integrations need explicit blocked reasons.
+- Linear GitHub setup depends on GitHub repo existence and correct repo ownership.
 - Linear GitHub integration does not automatically create GitHub issues. Configure GitHub Issues Sync separately if the user expects Linear issues to appear in GitHub.
 - For Slack -> Linear -> GitHub workflows, configure GitHub Issues Sync as a repo/team link with two-way sync.
 - Slack-created Linear issues can sync a Slack thread; closing the Linear issue should update that thread when sync is enabled.

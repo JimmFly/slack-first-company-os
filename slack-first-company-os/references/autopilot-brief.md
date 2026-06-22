@@ -68,6 +68,7 @@ I can run this in brief-first autopilot mode: you answer the setup brief once, I
 5. GitHub
 - Create new org or reuse existing? Org slug/name if existing:
 - If org creation is unavailable, should I use the operator's personal account?
+- Approved target owner for the seed repo, normally the GitHub org slug:
 - Seed repo name:
 - Repo visibility: private / public
 - Create README/license/gitignore?
@@ -77,6 +78,7 @@ I can run this in brief-first autopilot mode: you answer the setup brief once, I
 - Create new workspace or reuse existing? URL/name if existing:
 - Workspace slug:
 - Team name and key:
+- Use Linear onboarding to connect Slack and GitHub if offered after the GitHub repo owner gate passes?
 - Connect Slack now?
 - Connect GitHub org/repo now?
 - Configure GitHub Issues Sync? none / one-way GitHub to Linear / two-way
@@ -86,7 +88,8 @@ I can run this in brief-first autopilot mode: you answer the setup brief once, I
 - Create new workspace or reuse existing? URL/name if existing:
 - Create Company OS page now?
 - Company OS page sections to include:
-- Connections to install now: Slack / GitHub / Linear
+- Connections to install now, default all unless explicitly deferred: Slack / GitHub / Linear
+- If Notion -> Linear requires Business/Enterprise plan or admin rights and is unavailable, should I mark it blocked and continue?
 - AI connector or MCP permissions: now or defer?
 
 8. Smoke tests
@@ -111,7 +114,9 @@ Approved automation:
 Human handoffs expected:
 OAuth scopes pre-approved:
 Assets to create/reuse:
+GitHub repo owner gate:
 Integrations to install:
+Notion integrations required/blocked:
 Deferred items:
 Smoke tests:
 Stop conditions:
@@ -125,7 +130,10 @@ Ask for one explicit confirmation. After confirmation, execute the approved plan
 - Prefer organization/workspace-scoped installs over personal-only authorization.
 - If a slug/name is unavailable, use the approved fallback pattern. If no fallback exists, pause.
 - If a platform requires an empty org to have a repo before integration, create the approved seed repo before connecting integrations.
+- After creating the seed repo, verify `owner/repo` equals the approved target owner and repo. If the target is an org but the repo owner is the operator's personal account, STOP before Linear and fix the repo location.
+- Use Linear onboarding to connect Slack and GitHub when it is offered, but only after the GitHub repo owner gate passes.
 - If the user approved two-way Linear GitHub Issues Sync, configure the repo/team link after the basic GitHub integration.
+- Install Notion Slack, GitHub, and Linear connections by default. If a Notion connection cannot be installed because of plan/admin/OAuth limitations, mark it blocked with the exact reason instead of skipping it.
 - If an OAuth popup opens and the consent target/scope was pre-approved, click through it. If it differs, pause.
 - If verification email or magic link access is authorized, retrieve and use it without logging secret material.
 - Do not treat marketplace app installation as notification routing. Configure Slack subscriptions only when approved.

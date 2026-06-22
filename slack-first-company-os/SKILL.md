@@ -20,9 +20,11 @@ Treat personal accounts only as authorization operators. The target state is org
 3. Offer a tooling mode before external setup: browser-only, existing Codex skills/connectors, platform CLIs, MCP servers/connectors, or defer. Do not install CLIs/plugins/connectors/MCP servers unless the user chooses that route.
 4. Confirm the object list before creating persistent objects such as workspaces, channels, repos, teams, databases, projects, or integrations.
 5. Record requested names/slugs and actual names/slugs. Requested slugs are often taken.
-6. Create or reuse the core assets in this order: Slack workspace, GitHub org plus at least one repo, Linear workspace, Notion workspace/page.
-7. Install integrations at workspace/org scope, then verify each integration in its owning product settings.
-8. Defer Slack notification routing and feed channels until the user confirms channel structure.
+6. Create or reuse the core assets in this order: Slack workspace, GitHub org plus a verified target-owned seed repo, Linear workspace, Notion workspace/page. For new org setups, target-owned means org-owned unless the user explicitly approved personal fallback.
+7. Before entering Linear, verify the seed repo owner is the approved GitHub target owner, normally the new org. If the repo was created under a personal account by mistake, stop and fix it first.
+8. During Linear registration/onboarding, use the built-in Slack and GitHub integration steps when offered after the GitHub repo owner gate passes.
+9. Install integrations at workspace/org scope, then verify each integration in its owning product settings.
+10. Defer Slack notification routing and feed channels until the user confirms channel structure.
 
 ## Verification Matrix
 
@@ -31,18 +33,21 @@ Verify evidence, not intent:
 - Slack app sidebar shows `Linear` and `GitHub` when installed.
 - Linear Settings -> Integrations -> Slack shows enabled.
 - Linear Settings -> Integrations -> GitHub shows enabled and lists the connected GitHub organization.
+- GitHub seed repo URL owner matches the approved target owner, not an accidental personal account.
 - Slack -> Linear smoke test creates a real Linear issue, and closing it in Linear updates the synced Slack thread.
 - GitHub issues appear only when Linear GitHub Issues Sync is configured for a repo/team link; use two-way sync when Linear issues should create or close GitHub issues.
-- Notion Settings & members -> Connections shows installed connection types.
+- Notion Settings & members -> Connections or Notion AI settings shows Slack, GitHub, and Linear installed, pending, or blocked with an explicit reason.
 - GitHub organization has the relevant GitHub Apps installed or configured, not just a personal OAuth account.
 - A Notion `Company OS` page links to the real Slack, Linear, GitHub, and Notion assets.
 
 ## Known Failure Modes
 
 - Linear cannot reliably connect GitHub until the GitHub org has at least one repo. Create a seed repo first.
+- GitHub repo creation UIs and CLIs can default to the operator's personal account. If the target is a GitHub org, verify the repo URL is `<target-org>/<repo>` before opening Linear. Do not continue into Linear with a personal-account seed repo unless the user explicitly approved personal fallback.
 - Linear onboarding can advance after a failed GitHub attempt without actually enabling GitHub. Always verify in Linear integration settings.
 - Linear GitHub integration is not the same as GitHub Issues Sync. Without a GitHub Issues repo/team link, Slack-created Linear issues will not appear as GitHub issues; one-way sync from GitHub to Linear is also insufficient for Linear-created issues.
 - Notion GitHub OAuth can return to a small popup without updating the parent Notion settings window. Close the popup, refresh Notion Connections, and trust only the installed-state indicator.
+- Notion integrations are not optional by default in this setup. Install Slack, GitHub, and Linear connections unless the user explicitly defers one or the product blocks it because of plan/admin limitations.
 - Slack app installation is not the same as repository/channel subscription. GitHub for Slack can be installed without `/github subscribe owner/repo`.
 - In autopilot mode, click OAuth/authorization screens automatically when the exact app, workspace/org, and permission scope were approved in the upfront brief and the browser session is already authenticated. Pause only for passwords, unavailable 2FA/captcha/email access, payment, admin approvals, unapproved permission expansion, or contradictions.
 
