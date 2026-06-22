@@ -5,7 +5,7 @@ Codex skill for setting up or auditing a Slack-first operating system for a smal
 ## One-Line Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AFK-Inc/slack-first-company-os/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/install.sh | bash
 ```
 
 Restart Codex after installing so the new skill is discovered.
@@ -16,7 +16,7 @@ If Codex already has the system skill installer available, install directly from
 
 ```bash
 python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --url https://github.com/AFK-Inc/slack-first-company-os/tree/main/slack-first-company-os
+  --url https://github.com/JimmFly/slack-first-company-os/tree/main/slack-first-company-os
 ```
 
 ## What It Covers
@@ -34,3 +34,7 @@ The installable skill is in:
 ```text
 slack-first-company-os/
 ```
+
+## Manual Install
+
+For agents that support the same `SKILL.md` folder layout but do not have the Codex installer, copy `slack-first-company-os/` into that agent's skills directory.

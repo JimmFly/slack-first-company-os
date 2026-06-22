@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="${REPO:-AFK-Inc/slack-first-company-os}"
+REPO="${REPO:-JimmFly/slack-first-company-os}"
 REF="${REF:-main}"
 SKILL_NAME="${SKILL_NAME:-slack-first-company-os}"
 DEST_ROOT="${CODEX_HOME:-$HOME/.codex}/skills"
