@@ -28,6 +28,7 @@ Steps:
 4. Verify:
    test -f "<skills-root>/slack-first-company-os/SKILL.md"
    test -f "<skills-root>/slack-first-company-os/references/setup-playbook.md"
+   test -f "<skills-root>/slack-first-company-os/references/harness.md"
 5. Restart or reload the agent if its skill discovery does not hot-reload.
 
 Safety:

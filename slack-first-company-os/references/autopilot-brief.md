@@ -37,6 +37,7 @@ I can run this in brief-first autopilot mode: you answer the setup brief once, I
 1. Run mode and permissions
 - May I run a tooling preflight first to inspect available connectors/skills/MCP tools, installed CLIs, CLI auth, browser control, computer-use capability, and logged-in sessions?
 - Should I prefer existing connectors/skills, CLI tools, MCP/connectors, browser automation, computer use, or a mix based on that preflight?
+- May I create or resume a setup harness log under artifacts/ and record non-secret evidence, permissions, OAuth decisions, blockers, and final grader status there?
 - May I create approved workspaces/orgs/repos/pages/channels automatically after you confirm the run plan?
 - May I install or enable missing CLIs, MCP servers, or connectors if useful, or should I only suggest them?
 - May I click OAuth/authorization consent screens myself when the exact app, target workspace/org/repo, and permission category are already approved in this brief?
@@ -113,17 +114,22 @@ After the user answers, summarize a run plan before creating anything:
 ```text
 Run mode:
 Tooling preflight:
+Harness log:
 Primary execution path:
 Fallback/manual handoff path:
 Approved automation:
 Human handoffs expected:
 OAuth scopes pre-approved:
+Scope diff policy:
 Assets to create/reuse:
 GitHub repo owner gate:
+Permission gates:
+Plan/billing blockers:
 Integrations to install:
 Notion integrations required/blocked:
 Deferred items:
 Smoke tests:
+Grader target:
 Stop conditions:
 ```
 
@@ -132,9 +138,11 @@ Ask for one explicit confirmation. After confirmation, execute the approved plan
 ## Execution Rules
 
 - Keep a running setup log with actual names, slugs, URLs, and deviations from the brief.
+- Read `references/harness.md` before execution and use it as the run harness for environment checks, idempotency probes, permissions, OAuth/scope diffs, secret hygiene, resume/reconcile, human handoffs, smoke tests, and final grading.
 - Run tooling preflight before opening setup pages. Check available tools/connectors/MCP, installed CLIs and auth, browser automation, computer use, and logged-in sessions.
 - Choose the strongest safe execution path in this order: authorized connector/MCP/CLI, install or enable missing tool with permission, browser automation, computer use, step-by-step links.
 - If falling back, record the reason: missing auth, missing command, insufficient permission, install denied, MCP unavailable, browser control unavailable, or user chose manual.
+- Probe existing objects before creating anything. Reuse, repair, or block with evidence instead of creating duplicates.
 - Prefer organization/workspace-scoped installs over personal-only authorization.
 - If a slug/name is unavailable, use the approved fallback pattern. If no fallback exists, pause.
 - If a platform requires an empty org to have a repo before integration, create the approved seed repo before connecting integrations.
@@ -144,8 +152,9 @@ Ask for one explicit confirmation. After confirmation, execute the approved plan
 - Install Notion Slack, GitHub, and Linear connections by default. If a Notion connection cannot be installed because of plan/admin/OAuth limitations, mark it blocked with the exact reason instead of skipping it.
 - If an OAuth popup opens and the consent target/scope was pre-approved, click through it. If it differs, pause.
 - If verification email or magic link access is authorized, retrieve and use it without logging secret material.
+- After any runtime restart, popup close, or human handoff, run the resume/reconcile harness and verify real state before continuing.
 - Do not treat marketplace app installation as notification routing. Configure Slack subscriptions only when approved.
-- Finish with the verification matrix from `references/setup-playbook.md`.
+- Finish with the verification matrix from `references/setup-playbook.md` and the final grader from `references/harness.md`.
 
 ## Handoff Phrases
 

@@ -86,6 +86,29 @@ Connector, skill, and MCP guidance:
 
 Record the preflight result, chosen primary path, fallback path, and any manual handoff links in the setup log and final matrix.
 
+## Phase 2.5: Setup Harness
+
+Before creating or changing external assets, read `references/harness.md` and create or resume the run log:
+
+```text
+artifacts/<company-or-slug>-company-os-setup-log.md
+```
+
+Use the harness throughout the run:
+
+- Environment harness: record available browser/desktop, shell, connectors/MCP/skills, CLIs, auth state, and fallback mode.
+- Idempotency harness: probe Slack, GitHub, Linear, Notion, and integrations before creating or retrying.
+- Permission harness: verify operator role and mutation rights before workspace/org/repo/app changes.
+- OAuth and scope diff harness: process one provider at a time, paste authorization links when helpful, and auto-click only pre-approved app/target/scope matches.
+- GitHub org harness: enforce the seed repo owner gate before Linear.
+- Plan and billing harness: record plan/admin blockers instead of silently skipping.
+- Secret hygiene harness: never log tokens, magic links, OAuth codes, passwords, 2FA values, or session material.
+- Resume and reconcile harness: after restart or handoff, re-probe real state before continuing.
+- Human handoff harness: give one precise link/action/expected result, then verify afterward.
+- Smoke harness and final grader: finish with evidence-backed status.
+
+If no browser or desktop control exists, switch to human bootstrap plus agent verification instead of making the user reason through the whole integration setup.
+
 ## Phase 3: Names And Slugs
 
 Collect:
@@ -242,6 +265,8 @@ Expected default result:
 Finish with a matrix:
 
 ```text
+Harness log:
+Final grader:
 Tooling mode chosen:
 Tooling preflight result:
 Primary execution path:
@@ -308,13 +333,15 @@ Verification before sharing:
 
 - Run the installer into a temporary `DEST_ROOT`.
 - Extract the direct archive into a temporary skills root.
-- Confirm `slack-first-company-os/SKILL.md` and `slack-first-company-os/references/setup-playbook.md` exist.
+- Confirm `slack-first-company-os/SKILL.md`, `slack-first-company-os/references/setup-playbook.md`, and `slack-first-company-os/references/harness.md` exist.
 - Run the skill validator if available.
 
 ## Lessons From Real Setup
 
 - Offer both guided mode and brief-first autopilot mode. The former is better for learning; the latter is better when the user wants to answer once and let the agent execute.
 - Run tooling preflight before choosing browser/computer/manual setup. Prefer authorized CLI/MCP/connector paths when they are safer or faster; fall back to browser use, then computer use, then step-by-step links.
+- Start a setup harness log before asset creation. On every restart or human handoff, re-probe state instead of trusting memory.
+- Record evidence, permissions, OAuth scope decisions, and blockers in the harness log so another agent can resume the run.
 - Ask before creating channels or repos. Even sensible defaults should be confirmed.
 - A Slack app in the sidebar means the app is installed, not that notifications are routed.
 - A Notion page link is not the same as a workspace connection.

@@ -18,13 +18,14 @@ Treat personal accounts only as authorization operators. The target state is org
    - **Brief-first autopilot mode**: ask all setup questions up front, get one confirmation, then execute automatically. Use this when the user asks for `/goal`, "fully automatic", "ask everything first", or a teammate-ready setup flow. Read `references/autopilot-brief.md`.
 2. Inventory existing assets before creating anything: Slack workspace, Notion workspace, Linear workspace, GitHub org, URLs/slugs, and admin/owner access.
 3. Run a tooling preflight before external setup: inspect available connectors/skills/MCP tools, installed CLIs, auth state, browser automation, and computer-use capability. Prefer reliable authorized tools over manual UI work.
-4. Confirm the object list before creating persistent objects such as workspaces, channels, repos, teams, databases, projects, or integrations.
-5. Record requested names/slugs and actual names/slugs. Requested slugs are often taken.
-6. Create or reuse the core assets in this order: Slack workspace, GitHub org plus a verified target-owned seed repo, Linear workspace, Notion workspace/page. For new org setups, target-owned means org-owned unless the user explicitly approved personal fallback.
-7. Before entering Linear, verify the seed repo owner is the approved GitHub target owner, normally the new org. If the repo was created under a personal account by mistake, stop and fix it first.
-8. During Linear registration/onboarding, use the built-in Slack and GitHub integration steps when offered after the GitHub repo owner gate passes.
-9. Install integrations at workspace/org scope, then verify each integration in its owning product settings.
-10. Defer Slack notification routing and feed channels until the user confirms channel structure.
+4. Start or resume the setup harness from `references/harness.md`: create the setup log, use idempotency/permission/OAuth/scope-diff gates, and keep evidence current after each step.
+5. Confirm the object list before creating persistent objects such as workspaces, channels, repos, teams, databases, projects, or integrations.
+6. Record requested names/slugs and actual names/slugs. Requested slugs are often taken.
+7. Create or reuse the core assets in this order: Slack workspace, GitHub org plus a verified target-owned seed repo, Linear workspace, Notion workspace/page. For new org setups, target-owned means org-owned unless the user explicitly approved personal fallback.
+8. Before entering Linear, verify the seed repo owner is the approved GitHub target owner, normally the new org. If the repo was created under a personal account by mistake, stop and fix it first.
+9. During Linear registration/onboarding, use the built-in Slack and GitHub integration steps when offered after the GitHub repo owner gate passes.
+10. Install integrations at workspace/org scope, then verify each integration in its owning product settings.
+11. Defer Slack notification routing and feed channels until the user confirms channel structure.
 
 ## Verification Matrix
 
@@ -55,5 +56,7 @@ Verify evidence, not intent:
 ## Detailed Playbook
 
 For step-by-step setup, object naming, integration order, and troubleshooting, read `references/setup-playbook.md`.
+
+For execution harnesses, evidence logging, resume/reconcile behavior, OAuth scope diffing, human handoffs, and pass/fail grading, read `references/harness.md`.
 
 For upfront questionnaire and full-execution mode, read `references/autopilot-brief.md`.

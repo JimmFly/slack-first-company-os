@@ -16,7 +16,7 @@ If someone wants their own coding agent to install this skill, send them this re
 ```text
 Install the Agent Skill at https://github.com/JimmFly/slack-first-company-os.
 It is a directory-style SKILL.md skill named slack-first-company-os.
-Find my agent's skills directory, install the whole slack-first-company-os/ folder there, verify SKILL.md and references/setup-playbook.md exist, then tell me whether I need to restart or reload the agent.
+Find my agent's skills directory, install the whole slack-first-company-os/ folder there, verify SKILL.md plus references/setup-playbook.md and references/harness.md exist, then tell me whether I need to restart or reload the agent.
 Do not install Slack, Notion, Linear, GitHub CLIs, MCP servers, or connectors unless I separately ask for that.
 After installing, tell me I can run either guided mode or brief-first autopilot mode.
 ```
@@ -42,6 +42,7 @@ Verify the final layout:
 ```text
 /path/to/agent/skills/slack-first-company-os/SKILL.md
 /path/to/agent/skills/slack-first-company-os/references/setup-playbook.md
+/path/to/agent/skills/slack-first-company-os/references/harness.md
 ```
 
 ## Install For Claude Code
@@ -84,6 +85,7 @@ python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/inst
 
 - Slack workspace setup and app installs
 - Tooling preflight across CLI, MCP/connectors, browser use, computer use, and manual handoff links
+- Setup harness for idempotency, permissions, OAuth scope diffing, secret hygiene, resume/reconcile, human handoffs, evidence, smoke tests, and pass/fail grading
 - GitHub organization and verified target-owned seed repository prerequisites
 - Linear onboarding/settings Slack, GitHub, and GitHub Issues Sync configuration
 - Notion workspace/page setup plus Slack, GitHub, and Linear connection verification
