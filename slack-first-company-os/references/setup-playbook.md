@@ -259,7 +259,7 @@ curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main
 
 # Direct archive, no installer script
 mkdir -p "/path/to/agent/skills"
-curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/dist/slack-first-company-os.tar.gz | tar -xz -C "/path/to/agent/skills"
+curl -fsSL https://github.com/JimmFly/slack-first-company-os/releases/latest/download/slack-first-company-os.tar.gz | tar -xz -C "/path/to/agent/skills"
 ```
 
 Verification before sharing:

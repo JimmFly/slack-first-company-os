@@ -24,7 +24,7 @@ Steps:
    curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/install.sh | DEST_ROOT="<skills-root>" bash
 3. If shell scripts are not allowed, install the direct archive:
    mkdir -p "<skills-root>"
-   curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/dist/slack-first-company-os.tar.gz | tar -xz -C "<skills-root>"
+   curl -fsSL https://github.com/JimmFly/slack-first-company-os/releases/latest/download/slack-first-company-os.tar.gz | tar -xz -C "<skills-root>"
 4. Verify:
    test -f "<skills-root>/slack-first-company-os/SKILL.md"
    test -f "<skills-root>/slack-first-company-os/references/setup-playbook.md"
