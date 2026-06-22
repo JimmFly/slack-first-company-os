@@ -4,7 +4,7 @@ set -euo pipefail
 REPO="${REPO:-JimmFly/slack-first-company-os}"
 REF="${REF:-main}"
 SKILL_NAME="${SKILL_NAME:-slack-first-company-os}"
-DEST_ROOT="${CODEX_HOME:-$HOME/.codex}/skills"
+DEST_ROOT="${DEST_ROOT:-${CODEX_HOME:-$HOME/.codex}/skills}"
 DEST="${DEST_ROOT}/${SKILL_NAME}"
 
 tmp_dir="$(mktemp -d)"
@@ -36,4 +36,4 @@ fi
 cp -R "$skill_src" "$DEST"
 
 echo "Installed ${SKILL_NAME} to ${DEST}"
-echo "Restart Codex to pick up the new skill."
+echo "Restart or reload your agent to pick up the new skill."

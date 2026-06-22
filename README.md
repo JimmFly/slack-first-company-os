@@ -2,6 +2,17 @@
 
 Codex skill for setting up or auditing a Slack-first operating system for a small team using Slack, Notion, Linear, and GitHub.
 
+## Give This To An Agent
+
+If someone wants their own coding agent to install this skill, send them this repo plus [`AGENT_INSTALL.md`](AGENT_INSTALL.md). The short prompt is:
+
+```text
+Install the Agent Skill at https://github.com/JimmFly/slack-first-company-os.
+It is a directory-style SKILL.md skill named slack-first-company-os.
+Find my agent's skills directory, install the whole slack-first-company-os/ folder there, verify SKILL.md and references/setup-playbook.md exist, then tell me whether I need to restart or reload the agent.
+Do not install Slack, Notion, Linear, GitHub CLIs, MCP servers, or connectors unless I separately ask for that.
+```
+
 ## One-Line Install For Codex
 
 ```bash
@@ -9,6 +20,21 @@ curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main
 ```
 
 Restart Codex after installing so the new skill is discovered.
+
+## Install For Any Compatible Agent
+
+Use this when the agent supports the Agent Skills / `SKILL.md` folder layout and you know its skills root:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/install.sh | DEST_ROOT="/path/to/agent/skills" bash
+```
+
+Verify the final layout:
+
+```text
+/path/to/agent/skills/slack-first-company-os/SKILL.md
+/path/to/agent/skills/slack-first-company-os/references/setup-playbook.md
+```
 
 ## Install For Claude Code
 
@@ -26,6 +52,15 @@ OpenClaw follows the `SKILL.md` Agent Skills format and can load shared skills f
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/install.sh | DEST_ROOT="$HOME/.openclaw/skills" bash
+```
+
+## Direct Archive Download
+
+For agents or environments that do not want to run the installer script, download the skill folder archive directly:
+
+```bash
+mkdir -p "/path/to/agent/skills"
+curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/dist/slack-first-company-os.tar.gz | tar -xz -C "/path/to/agent/skills"
 ```
 
 ## Codex Skill Installer
@@ -56,3 +91,11 @@ slack-first-company-os/
 ## Manual Install
 
 For agents that support the same `SKILL.md` folder layout but do not have the Codex installer, copy `slack-first-company-os/` into that agent's skills directory.
+
+## Installer Options
+
+The installer supports:
+
+- `DEST_ROOT`: target skills root. Defaults to `${CODEX_HOME:-$HOME/.codex}/skills`.
+- `OVERWRITE=1`: replace an existing installed copy.
+- `REPO`, `REF`, `SKILL_NAME`: override the GitHub repo, branch/tag/commit, or skill folder name.
