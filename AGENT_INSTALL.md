@@ -11,7 +11,7 @@ https://github.com/JimmFly/slack-first-company-os
 Skill name:
 slack-first-company-os
 
-This is an Agent Skills / SKILL.md folder skill. Install the entire slack-first-company-os/ directory, not just SKILL.md.
+This is an Agent Skills / SKILL.md folder skill. Install the entire slack-first-company-os/ directory, not just SKILL.md. After installing, tell me I can run either guided mode or brief-first autopilot mode.
 
 Steps:
 1. Identify my agent's skills root.

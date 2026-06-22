@@ -1,4 +1,4 @@
 interface:
   display_name: "Slack-First Company OS"
   short_description: "Set up Slack-centered team tooling"
-  default_prompt: "Use $slack-first-company-os to set up or audit a Slack-first workspace with Notion, Linear, and GitHub."
+  default_prompt: "Use $slack-first-company-os to run guided or brief-first setup for Slack, Notion, Linear, and GitHub."

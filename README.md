@@ -2,6 +2,13 @@
 
 Codex skill for setting up or auditing a Slack-first operating system for a small team using Slack, Notion, Linear, and GitHub.
 
+## Run Modes
+
+This skill supports two setup styles:
+
+- **Guided mode**: the agent walks the user through setup step by step and confirms important objects before creating them.
+- **Brief-first autopilot mode**: the agent asks the full setup brief up front, produces a run plan, gets one confirmation, then executes automatically. It can click pre-approved OAuth screens itself and pauses only for passwords, unavailable 2FA/email/captcha, admin, payment, or changed permission scope.
+
 ## Give This To An Agent
 
 If someone wants their own coding agent to install this skill, send them this repo plus [`AGENT_INSTALL.md`](AGENT_INSTALL.md). The short prompt is:
@@ -11,6 +18,7 @@ Install the Agent Skill at https://github.com/JimmFly/slack-first-company-os.
 It is a directory-style SKILL.md skill named slack-first-company-os.
 Find my agent's skills directory, install the whole slack-first-company-os/ folder there, verify SKILL.md and references/setup-playbook.md exist, then tell me whether I need to restart or reload the agent.
 Do not install Slack, Notion, Linear, GitHub CLIs, MCP servers, or connectors unless I separately ask for that.
+After installing, tell me I can run either guided mode or brief-first autopilot mode.
 ```
 
 ## One-Line Install For Codex
@@ -79,6 +87,7 @@ python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/inst
 - Linear Slack, GitHub, and GitHub Issues Sync configuration
 - Notion workspace/page setup and connection verification
 - End-to-end smoke tests across Slack, Linear, and GitHub
+- Guided setup and brief-first autopilot setup
 
 ## Skill Path
 

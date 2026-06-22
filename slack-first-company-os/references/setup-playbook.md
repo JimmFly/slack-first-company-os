@@ -13,6 +13,15 @@ Organization/workspace scope matters:
 - Linear: enable integrations in the Linear workspace, not only a personal account.
 - Notion: install workspace connections under Settings & members -> Connections.
 
+## Phase 0: Run Mode
+
+Start by choosing one of two setup modes:
+
+- **Guided mode**: ask and confirm progressively. Use this when the user is exploring, learning, or unsure.
+- **Brief-first autopilot mode**: ask all material questions up front, summarize a run plan, get one confirmation, then execute automatically. Use this when the user wants `/goal`-style execution or a teammate-ready handoff.
+
+If the user chooses brief-first autopilot, read `references/autopilot-brief.md` and complete the brief before Phase 1. In autopilot mode, click OAuth/authorization screens yourself when the exact app, workspace/org/repo, and permission category were pre-approved and the session is already logged in. Pause only for passwords, unavailable SSO/2FA/email access, captchas, payment, admin approvals, destructive actions, unapproved permission expansion, or contradictions in the brief.
+
 ## Phase 1: Inventory
 
 Ask for current status before opening creation pages:
@@ -271,6 +280,7 @@ Verification before sharing:
 
 ## Lessons From Real Setup
 
+- Offer both guided mode and brief-first autopilot mode. The former is better for learning; the latter is better when the user wants to answer once and let the agent execute.
 - Ask whether to run browser-only, use available skills/connectors, use/install CLI tooling, or connect Slack/GitHub/Notion/Linear MCP after inventory and before setup.
 - Ask before creating channels or repos. Even sensible defaults should be confirmed.
 - A Slack app in the sidebar means the app is installed, not that notifications are routed.
