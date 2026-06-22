@@ -83,6 +83,7 @@ python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/inst
 ## What It Covers
 
 - Slack workspace setup and app installs
+- Tooling preflight across CLI, MCP/connectors, browser use, computer use, and manual handoff links
 - GitHub organization and verified target-owned seed repository prerequisites
 - Linear onboarding/settings Slack, GitHub, and GitHub Issues Sync configuration
 - Notion workspace/page setup plus Slack, GitHub, and Linear connection verification

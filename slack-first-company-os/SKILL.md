@@ -17,7 +17,7 @@ Treat personal accounts only as authorization operators. The target state is org
    - **Guided mode**: ask/confirm as work proceeds. Use this by default for a first-time user or unclear workspace.
    - **Brief-first autopilot mode**: ask all setup questions up front, get one confirmation, then execute automatically. Use this when the user asks for `/goal`, "fully automatic", "ask everything first", or a teammate-ready setup flow. Read `references/autopilot-brief.md`.
 2. Inventory existing assets before creating anything: Slack workspace, Notion workspace, Linear workspace, GitHub org, URLs/slugs, and admin/owner access.
-3. Offer a tooling mode before external setup: browser-only, existing Codex skills/connectors, platform CLIs, MCP servers/connectors, or defer. Do not install CLIs/plugins/connectors/MCP servers unless the user chooses that route.
+3. Run a tooling preflight before external setup: inspect available connectors/skills/MCP tools, installed CLIs, auth state, browser automation, and computer-use capability. Prefer reliable authorized tools over manual UI work.
 4. Confirm the object list before creating persistent objects such as workspaces, channels, repos, teams, databases, projects, or integrations.
 5. Record requested names/slugs and actual names/slugs. Requested slugs are often taken.
 6. Create or reuse the core assets in this order: Slack workspace, GitHub org plus a verified target-owned seed repo, Linear workspace, Notion workspace/page. For new org setups, target-owned means org-owned unless the user explicitly approved personal fallback.
@@ -50,6 +50,7 @@ Verify evidence, not intent:
 - Notion integrations are not optional by default in this setup. Install Slack, GitHub, and Linear connections unless the user explicitly defers one or the product blocks it because of plan/admin limitations.
 - Slack app installation is not the same as repository/channel subscription. GitHub for Slack can be installed without `/github subscribe owner/repo`.
 - In autopilot mode, click OAuth/authorization screens automatically when the exact app, workspace/org, and permission scope were approved in the upfront brief and the browser session is already authenticated. Pause only for passwords, unavailable 2FA/captcha/email access, payment, admin approvals, unapproved permission expansion, or contradictions.
+- Do not jump straight to browser-only setup unless tooling preflight shows CLI/MCP/connector paths are unavailable, unauthenticated, not installable under the user's permissions, or less reliable for the current step. If browser or computer use is unavailable too, provide step-by-step links and wait for the user to complete each handoff.
 
 ## Detailed Playbook
 

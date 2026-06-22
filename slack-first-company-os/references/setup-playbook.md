@@ -39,34 +39,42 @@ For existing assets, collect:
 - whether the user is admin/owner
 - whether it should be reused, renamed, or replaced
 
-Do not create anything until inventory and tooling mode are complete.
+Do not create anything until inventory and tooling preflight are complete.
 
-## Phase 2: Tooling Mode Choice
+## Phase 2: Tooling Preflight And Fallback Ladder
 
-Before creating external assets, ask whether the user wants a browser-only run or wants Codex to use or install supporting tools.
+Before creating external assets, inspect what the current agent environment can actually use. Do this before choosing browser-only setup.
 
-Ask in the user's language with these options:
+Preflight checklist:
+
+- Available agent tools/skills/connectors: Slack, GitHub, Notion, Linear, browser control, computer use, filesystem, git, and shell.
+- Installed CLIs: at minimum check likely commands such as `gh`; check Slack/Notion/Linear CLIs only when relevant because they may not be needed for marketplace integrations.
+- CLI auth state with non-destructive commands, for example `gh auth status` before GitHub repo/org work.
+- MCP servers or connectors already configured in the current agent host. Prefer tool discovery or the host's MCP listing mechanism over guessing.
+- Browser automation availability and whether the browser is already logged into Slack, GitHub, Linear, Notion, and the email inbox.
+- Whether missing CLIs/MCP/connectors can be installed or enabled under the current approval policy and user permissions.
+- Whether the user approved installing tools, connecting MCP servers, or using existing credentials.
+
+Use this fallback ladder:
 
 ```text
-How should I run this setup?
-
-1. Browser-only: no CLI or extra installs; use product UIs and OAuth flows.
-2. Use available Codex skills/connectors: use already-installed Slack, GitHub, Notion, or Linear capabilities if authorized.
-3. Use platform CLI tooling where helpful: check existing CLIs first, then ask before installing anything.
-4. Use MCP servers/connectors where helpful: check current official docs and installed MCP clients first, then ask before connecting a workspace.
-5. Decide later: create the core workspaces first, revisit tooling after integrations are verified.
+1. Use already-available, authorized connectors/MCP/CLI when they are safer or faster for the step.
+2. If a useful tool is missing but can be installed or connected, explain the permission reason and ask before installing/enabling it.
+3. If tool installation/auth is unavailable or slower than UI setup, use browser automation with logged-in sessions.
+4. If browser automation is unavailable but computer-use control exists, use computer use for UI steps.
+5. If neither tooling nor UI control is available, send exact step-by-step links and instructions, then wait for the user to report completion before continuing.
 ```
 
-Default recommendation for a first run is browser-only. It keeps permissions visible and avoids debugging local tooling while account setup is still moving.
+Do not skip directly to step 3 unless steps 1 and 2 are unavailable, unauthorized, blocked, or clearly worse for the specific action.
 
-Tooling suggestions to offer, not silently enable:
+Tooling suggestions to evaluate, not silently enable:
 
 | Platform | CLI option | MCP / connector option | Setup default |
 | --- | --- | --- | --- |
-| Slack | Slack CLI is useful for creating, running, and deploying custom Slack apps. It is not required for installing marketplace apps into a workspace. | Use an installed Slack connector/MCP only when the user wants Codex to read/post Slack context or manage Slack objects. | Browser/OAuth for workspace and app installs. |
-| GitHub | GitHub CLI `gh` can create repos, inspect org/repo state, and verify auth when already installed or explicitly approved. | GitHub MCP or a GitHub connector can help with repos, issues, PRs, and code context after org permissions are clear. | Browser or `gh` for repo setup; MCP/connector for ongoing automation. |
-| Notion | No CLI is required for this setup. Use API tooling only if the user asks for automation. | Notion MCP or a Notion connector can read/write workspace pages and databases after workspace access is authorized. | Browser/OAuth for workspace connections and pages. |
-| Linear | No CLI is required for this setup. Use API tooling only if the user asks for automation. | Linear MCP or a Linear connector can read/write issues, projects, and team context after workspace access is authorized. | Browser/OAuth for integrations; MCP/connector for ongoing execution workflows. |
+| Slack | Slack CLI is useful for custom Slack app development; it is usually not required for marketplace app installs. | Use an installed Slack connector/MCP when the agent needs to read/post Slack context or manage Slack objects. | Prefer connector/MCP if already authorized for Slack object checks; otherwise browser/OAuth for workspace and marketplace app installs. |
+| GitHub | GitHub CLI `gh` can create repos, inspect org/repo state, verify auth, and enforce the repo owner gate. | GitHub MCP or connector can help with repos, issues, PRs, and code context after org permissions are clear. | Prefer `gh` or GitHub connector for repo/org verification; browser for OAuth app installs when needed. |
+| Notion | No CLI is required for normal workspace connection setup. Use API tooling only if the user asks for page/database automation. | Notion MCP or connector can read/write workspace pages and verify pages/databases after authorization. | Prefer connector/MCP for page creation if available; browser/OAuth for Notion Connections and AI Connector setup. |
+| Linear | No CLI is required for normal setup. Use API/MCP tooling when available for issue/project/team verification. | Linear MCP or connector can read/write issues, projects, and team context after workspace authorization. | Prefer onboarding/settings UI for initial integrations; use connector/MCP for verification and smoke tests when available. |
 
 Connector, skill, and MCP guidance:
 
@@ -74,8 +82,9 @@ Connector, skill, and MCP guidance:
 - Do not request plugin, connector, CLI, or MCP installation unless the user explicitly chooses that route.
 - Before adding MCP, verify the official endpoint/docs or a trusted registry, explain the permissions, and confirm the exact target workspace/org.
 - If a connector install is requested, explain the permission reason and verify the exact target workspace/org before continuing.
+- Record why each unavailable tool path was skipped: missing command, missing auth, insufficient permission, install not allowed, no MCP host, no browser control, or user chose manual.
 
-Record the chosen mode in the setup log and final matrix.
+Record the preflight result, chosen primary path, fallback path, and any manual handoff links in the setup log and final matrix.
 
 ## Phase 3: Names And Slugs
 
@@ -234,6 +243,9 @@ Finish with a matrix:
 
 ```text
 Tooling mode chosen:
+Tooling preflight result:
+Primary execution path:
+Fallback/manual handoff path:
 Slack -> Linear app:
 Slack -> GitHub app:
 Slack -> Notion app/link preview:
@@ -302,7 +314,7 @@ Verification before sharing:
 ## Lessons From Real Setup
 
 - Offer both guided mode and brief-first autopilot mode. The former is better for learning; the latter is better when the user wants to answer once and let the agent execute.
-- Ask whether to run browser-only, use available skills/connectors, use/install CLI tooling, or connect Slack/GitHub/Notion/Linear MCP after inventory and before setup.
+- Run tooling preflight before choosing browser/computer/manual setup. Prefer authorized CLI/MCP/connector paths when they are safer or faster; fall back to browser use, then computer use, then step-by-step links.
 - Ask before creating channels or repos. Even sensible defaults should be confirmed.
 - A Slack app in the sidebar means the app is installed, not that notifications are routed.
 - A Notion page link is not the same as a workspace connection.
