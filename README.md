@@ -2,13 +2,31 @@
 
 Codex skill for setting up or auditing a Slack-first operating system for a small team using Slack, Notion, Linear, and GitHub.
 
-## One-Line Install
+## One-Line Install For Codex
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/install.sh | bash
 ```
 
 Restart Codex after installing so the new skill is discovered.
+
+## Install For Claude Code
+
+Claude Code discovers personal skills from `~/.claude/skills/<skill-name>/SKILL.md`.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/install.sh | DEST_ROOT="$HOME/.claude/skills" bash
+```
+
+Restart Claude Code or reload the session if needed.
+
+## Install For OpenClaw
+
+OpenClaw follows the `SKILL.md` Agent Skills format and can load shared skills from `~/.openclaw/skills`.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/install.sh | DEST_ROOT="$HOME/.openclaw/skills" bash
+```
 
 ## Codex Skill Installer
 
