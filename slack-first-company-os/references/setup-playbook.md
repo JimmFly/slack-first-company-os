@@ -235,6 +235,40 @@ Write down deferred decisions instead of silently skipping them:
 - Linear teams/projects/templates
 - GitHub repo templates, branch protection, issue/PR templates
 
+## Phase 11: Reusable Skill Handoff
+
+When the setup process is being turned into a reusable skill, finish with install guidance for both humans and other agents.
+
+Publishable handoff checklist:
+
+- Put the installable skill in a directory named after the skill, with `SKILL.md` at the root.
+- Include `references/` files needed by the skill, not just `SKILL.md`.
+- Provide a one-line installer that accepts `DEST_ROOT` so users can target Codex, Claude Code, OpenClaw, or another compatible agent.
+- Provide a direct archive download for agents that should not run installer scripts.
+- Provide a copy/paste prompt that tells another agent how to find its skills root, install the full skill folder, verify required files, and restart or reload.
+- Keep process-skill installation separate from platform tooling installation. Installing this skill should not install Slack, Notion, Linear, GitHub CLIs, MCP servers, or connectors unless the user separately chooses that route.
+
+Canonical install examples for this skill:
+
+```bash
+# Codex
+curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/install.sh | bash
+
+# Any compatible Agent Skills client
+curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/install.sh | DEST_ROOT="/path/to/agent/skills" bash
+
+# Direct archive, no installer script
+mkdir -p "/path/to/agent/skills"
+curl -fsSL https://raw.githubusercontent.com/JimmFly/slack-first-company-os/main/dist/slack-first-company-os.tar.gz | tar -xz -C "/path/to/agent/skills"
+```
+
+Verification before sharing:
+
+- Run the installer into a temporary `DEST_ROOT`.
+- Extract the direct archive into a temporary skills root.
+- Confirm `slack-first-company-os/SKILL.md` and `slack-first-company-os/references/setup-playbook.md` exist.
+- Run the skill validator if available.
+
 ## Lessons From Real Setup
 
 - Ask whether to run browser-only, use available skills/connectors, use/install CLI tooling, or connect Slack/GitHub/Notion/Linear MCP after inventory and before setup.
@@ -246,3 +280,4 @@ Write down deferred decisions instead of silently skipping them:
 - For Slack -> Linear -> GitHub workflows, configure GitHub Issues Sync as a repo/team link with two-way sync.
 - Slack-created Linear issues can sync a Slack thread; closing the Linear issue should update that thread when sync is enabled.
 - Always verify integrations in the owning product settings after OAuth.
+- When publishing the setup as a reusable skill, make the installer agent-neutral with `DEST_ROOT`; test both the installer and direct archive from the public remote.
